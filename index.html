@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nani's Phone</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#171923;color:white;
+ font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+ display:flex;justify-content:center;align-items:center;
+ min-height:100vh
+}
+.phone{
+ width:100%;max-width:390px;height:844px;
+ overflow:hidden;position:relative;
+ background:linear-gradient(145deg,#b7c9d9,#697f9b,#28364c);
+}
+.lock{
+ position:absolute;inset:0;padding:65px 22px;
+ text-align:center;
+ background:linear-gradient(180deg,#17263855,#11182788);
+}
+.date{font-size:17px;margin-top:25px}
+.clock{font-size:78px;font-weight:300;margin:4px}
+.notifications{margin-top:45px;text-align:left}
+.notice{
+ background:#252b35d9;border:1px solid #ffffff30;
+ border-radius:17px;padding:14px;margin-bottom:10px;
+ backdrop-filter:blur(15px)
+}
+.notice small{color:#d5d9e1}
+.notice p{margin:7px 0 0;font-size:14px}
+.unlock{
+ position:absolute;bottom:35px;left:0;width:100%;
+ background:none;border:0;color:white;font-size:15px
+}
+.home{
+ display:none;position:absolute;inset:0;
+ padding:65px 23px 30px;
+ background:linear-gradient(145deg,#aebfd0,#526b88,#202d42)
+}
+.welcome{text-align:center;font-size:21px;margin:20px 0 35px}
+.apps{display:grid;grid-template-columns:repeat(4,1fr);gap:25px 12px}
+.app{text-align:center;font-size:12px}
+.app button{
+ width:57px;height:57px;border:0;border-radius:16px;
+ font-size:27px;background:#ffffffdf;margin-bottom:6px
+}
+.dock{
+ position:absolute;bottom:25px;left:15px;right:15px;
+ display:flex;justify-content:space-around;
+ background:#ffffff45;padding:12px;border-radius:22px
+}
+.dock button{font-size:25px;border:0;background:none}
+.modal{
+ display:none;position:absolute;inset:0;
+ background:#f4f5f8;color:#222;padding:55px 22px
+}
+.modal button{border:0;background:#e2e5eb;padding:10px 16px;border-radius:12px}
+</style>
+</head>
+<body>
+<div class="phone">
+
+ <section class="lock" id="lock">
+  <div class="date">Sunday, November 1</div>
+  <div class="clock" id="clock">19:38</div>
+  <div class="notifications">
+   <div class="notice">
+    <small>💬 Messages · ตอนนี้</small>
+    <p><b>Sky ☁️</b><br>ถึงบ้านหรือยัง วันนี้เป็นยังไงบ้าง</p>
+   </div>
+   <div class="notice">
+    <small>📷 Instagram · 2 นาทีที่แล้ว</small>
+    <p><b>nani</b><br>มีรูปใหม่มาอัปเดตแล้ว ♡</p>
+   </div>
+   <div class="notice">
+    <small>🎵 Music · ตอนนี้</small>
+    <p>เพลงโปรดของวันนี้กำลังเล่นอยู่</p>
+   </div>
+  </div>
+  <button class="unlock" onclick="unlock()">แตะเพื่อปลดล็อก ↑</button>
+ </section>
+
+ <section class="home" id="home">
+  <div class="welcome">Good evening ☁️<br><small>Welcome to Nani's phone</small></div>
+  <div class="apps">
+   <div class="app"><button onclick="openApp('Messages')">💬</button>Messages</div>
+   <div class="app"><button onclick="openApp('Photos')">🌄</button>Photos</div>
+   <div class="app"><button onclick="openApp('Music')">🎧</button>Music</div>
+   <div class="app"><button onclick="openApp('Calendar')">📅</button>Calendar</div>
+   <div class="app"><button onclick="openApp('Instagram')">📷</button>Instagram</div>
+   <div class="app"><button onclick="openApp('Notes')">📝</button>Notes</div>
+   <div class="app"><button onclick="openApp('Weather')">🌤️</button>Weather</div>
+   <div class="app"><button onclick="openApp('Settings')">⚙️</button>Settings</div>
+  </div>
+  <div class="dock">
+   <button onclick="openApp('Phone')">📞</button>
+   <button onclick="openApp('Safari')">🌐</button>
+   <button onclick="openApp('Camera')">📸</button>
+   <button onclick="openApp('Mail')">✉️</button>
+  </div>
+ </section>
+
+ <section class="modal" id="modal">
+  <button onclick="closeApp()">← กลับ</button>
+  <h1 id="appTitle"></h1>
+  <p id="appText">Welcome to Nani's phone ♡</p>
+ </section>
+</div>
+
+<script>
+function unlock(){
+ document.getElementById('lock').style.display='none';
+ document.getElementById('home').style.display='block';
+}
+function openApp(name){
+ document.getElementById('appTitle').textContent=name;
+ document.getElementById('appText').textContent=
+ 'Welcome to '+name+' ♡ This is a fanmade Nani phone.';
+ document.getElementById('modal').style.display='block';
+}
+function closeApp(){
+ document.getElementById('modal').style.display='none';
+}
+function updateClock(){
+ const d=new Date();
+ document.getElementById('clock').textContent=
+ d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+}
+updateClock();
+setInterval(updateClock,1000);
+</script>
+</body>
+</html>
